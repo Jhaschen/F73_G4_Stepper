@@ -234,19 +234,8 @@ int main ()
 
     }
 
-
-
-
-
-
-
-
-
-
 	_delay_ms(100);
 		
-
-
 	}
 	return 0;
 }
