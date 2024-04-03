@@ -14,7 +14,7 @@ uint8_t InputStatus = 2; // 0--> Wischvorgang gestartet , 1--> Wischvorgang wird
 uint16_t OvCnt = 0;
 uint16_t StepPhase=0;
 uint16_t StepCnt = 0;
-char stufe=0;
+char stufe=2;
 uint16_t intervall_warten=0;
 
 //Schrittmotor:
@@ -128,6 +128,8 @@ ISR(TIMER0_COMP_vect)
               StepPhase = 0;
               StepCnt = 0;
               UART.UsartPuts("Wischvorgang gestoppt.\n");
+              lcd_gotoxy(0,4);  
+ 	            lcd_puts("Wischvorgang gestoppt.");
               InputStatus = 2;
             }
           }
@@ -154,7 +156,9 @@ ISR(USART_RXC_vect)
     //Gewählte Stufe ausgeben:
     UART.UsartPutc(stufe + 48);
     UART.UsartPutc('\n');
-   
+    lcd_gotoxy(0,6);  
+ 	  lcd_puts("Stufe: ");
+    lcd_putc(stufe + 48);  
 
   }
   else
@@ -201,38 +205,48 @@ int main ()
     lcd_gotoxy(0,2);  
     UART.UsartPuts("Taster 2 == Stopp\n");
  	  lcd_puts("Taster 2 == Stopp");   
-      
+     
 
 	for (;;)
 	{
 	  
-	  Taster= B.Button_read();
-	  //Wischvorgang wird gestartet wenn Taster 0 gedrückt:
-    if(Taster == 1 )
+	
+    switch (B.Button_read())
     {
-      
-      //Zählerstand zurcksetzen
+    case 1:
+       //Wischvorgang wird gestartet wenn Taster 0 gedrückt:
+      //Zählerstand zuruecksetzen
       TCNT0 = 0;
 
       UART.UsartPuts("Wischvorgang wird gestartet.\n");
       lcd_gotoxy(0,4);  
  	    lcd_puts("Wischvorgang wird gestartet.");
-      
-
+       lcd_gotoxy(0,6);  
+ 	     lcd_puts("Stufe: ");
+      lcd_putc(stufe + 48);  
       InputStatus = 1;
-
-    }
-    //Wischvorgang soll beendet beendet:
-    if(Taster==2)
-    {
-      
+      break;
+    case 2:
+       //Wischvorgang soll beendet beendet:
       UART.UsartPuts("Wischvorgang wird beendet ...\n");
       lcd_gotoxy(0,4);  
  	    lcd_puts("Wischvorgang wird beendet ...");
-
       InputStatus = 0;
-
+      break;
+    case 3:
+    //....
+      break;
+    case 4:
+       //....
+      break;
+    case 5:
+      //....
+      break;
+    
+    default:
+      break;
     }
+	  
 
 	_delay_ms(100);
 		
