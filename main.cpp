@@ -7,6 +7,28 @@
 //#include "can.h"
 #include "lcd.h"
 
+
+
+/*
+       Schritt   A   B   C   D
+       1 	    H 	H 	L 	L
+       2 	    L 	H 	H 	L
+       3 	    L 	L 	H 	H
+       4 	    H 	L 	L 	H
+A = Blue (Spule 1)
+B = Pink (Spule 2)
+C = Yellow (Spule 1)
+D = Orange (Spule 2)
+E = Midpoint
+
+PC6 --> IN1
+PC7 --> IN2
+PB0 --> IN3
+PB1 --> IN4
+PD4 --> EN1
+PD5 --> EN2
+
+*/
 //------------------------------------------------------------------------------
 //  Private Variablen
 //------------------------------------------------------------------------------
