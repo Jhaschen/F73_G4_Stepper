@@ -15,7 +15,6 @@ uint16_t OvCnt = 0;
 uint16_t StepPhase=0;
 uint16_t StepCnt = 0;
 char stufe=2;
-uint16_t intervall_warten=0;
 
 //Schrittmotor:
 uint8_t Stepper[4] [4] = {
@@ -110,7 +109,6 @@ ISR(TIMER0_COMP_vect)
             
             if(stufe!=3)
             {
-              intervall_warten=0;
               StepCnt = 0;
             }else{
               if(StepCnt==1934){
@@ -118,8 +116,6 @@ ISR(TIMER0_COMP_vect)
               }else{
                  StepCnt ++;
               }
-             
-            
             }
 
             //Stopp ?
